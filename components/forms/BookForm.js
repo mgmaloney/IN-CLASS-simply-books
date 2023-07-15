@@ -51,45 +51,23 @@ function BookForm({ obj }) {
     }
   };
 
-
   return (
     <Form onSubmit={handleSubmit}>
       <h2 className="text-white mt-5">{obj.firebaseKey ? 'Update' : 'Create'} Book</h2>
 
       {/* TITLE INPUT  */}
       <FloatingLabel controlId="floatingInput1" label="Book Title" className="mb-3">
-        <Form.Control
-          type="text"
-          placeholder="Enter a title"
-          name="title"
-          value={formInput.title}
-          onChange={handleChange}
-          required
-        />
+        <Form.Control type="text" placeholder="Enter a title" name="title" value={formInput.title} onChange={handleChange} required />
       </FloatingLabel>
 
       {/* IMAGE INPUT  */}
       <FloatingLabel controlId="floatingInput2" label="Book Image" className="mb-3">
-        <Form.Control
-          type="url"
-          placeholder="Enter an image url"
-          name="image"
-          value={formInput.image}
-          onChange={handleChange}
-          required
-        />
+        <Form.Control type="url" placeholder="Enter an image url" name="image" value={formInput.image} onChange={handleChange} required />
       </FloatingLabel>
 
       {/* PRICE INPUT  */}
       <FloatingLabel controlId="floatingInput3" label="Book Price" className="mb-3">
-        <Form.Control
-          type="text"
-          placeholder="Enter price"
-          name="price"
-          value={formInput.price}
-          onChange={handleChange}
-          required
-        />
+        <Form.Control type="text" placeholder="Enter price" name="price" value={formInput.price} onChange={handleChange} required />
       </FloatingLabel>
 
       {/* AUTHOR SELECT  */}
@@ -103,30 +81,17 @@ function BookForm({ obj }) {
           required
         >
           <option value="">Select an Author</option>
-          {
-            authors.map((author) => (
-              <option
-                key={author.firebaseKey}
-                value={author.firebaseKey}
-              >
-                {author.first_name} {author.last_name}
-              </option>
-            ))
-          }
+          {authors.map((author) => (
+            <option key={author.firebaseKey} value={author.firebaseKey}>
+              {author.first_name} {author.last_name}
+            </option>
+          ))}
         </Form.Select>
       </FloatingLabel>
 
       {/* DESCRIPTION TEXTAREA  */}
       <FloatingLabel controlId="floatingTextarea" label="Description" className="mb-3">
-        <Form.Control
-          as="textarea"
-          placeholder="Description"
-          style={{ height: '100px' }}
-          name="description"
-          value={formInput.description}
-          onChange={handleChange}
-          required
-        />
+        <Form.Control as="textarea" placeholder="Description" style={{ height: '100px' }} name="description" value={formInput.description} onChange={handleChange} required />
       </FloatingLabel>
 
       {/* A WAY TO HANDLE UPDATES FOR TOGGLES, RADIOS, ETC  */}
