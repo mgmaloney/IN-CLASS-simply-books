@@ -5,7 +5,7 @@ import AuthorForm from '../../../components/forms/AuthorForm';
 
 export default function EditAuthor() {
   const [editItem, setEditItem] = useState();
-  const router = useRouter;
+  const router = useRouter();
   const { firebaseKey } = router.query;
 
   useEffect(() => {

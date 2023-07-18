@@ -1,6 +1,5 @@
 import { clientCredentials } from '../utils/client';
 import { getBooks } from './bookData';
-import { useAuth } from '../utils/context/authContext';
 
 const endpoint = clientCredentials.databaseURL;
 
@@ -82,10 +81,9 @@ const updateAuthor = (payload) =>
   });
 
 // TODO: GET A SINGLE AUTHOR'S BOOKS
-const getAuthorBooks = async (authorFBKey) => {
+const getAuthorBooks = async (authorFBKey, user) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const { user } = useAuth();
-  const books = await getBooks(`${user.uid}`);
+  const books = await getBooks(user.uid);
   const authorsBooks = [];
   books.forEach((book) => {
     if (book.author_id === authorFBKey) {
@@ -111,6 +109,4 @@ const favoriteAuthors = (uid) =>
       .catch(reject);
   });
 
-export {
-  getAuthors, createAuthor, getSingleAuthor, deleteSingleAuthor, updateAuthor, favoriteAuthors, getAuthorBooks 
-};
+export { getAuthors, createAuthor, getSingleAuthor, deleteSingleAuthor, updateAuthor, favoriteAuthors, getAuthorBooks };
