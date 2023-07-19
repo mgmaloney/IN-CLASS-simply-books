@@ -28,7 +28,7 @@ export default function ViewAuthor() {
         <h5>{authorDetails.first_name + authorDetails.last_name}</h5>
         <h5>{authorDetails.email}</h5>
         <div className="favorite-div">
-          <button type="button">Favorite {authorDetails.favorite ? '&#9733;' : '&#9734;'}</button>
+          <button type="button">{authorDetails.favorite ? '<3' : '</3'}</button>
         </div>
       </div>
       <div className="d-flex flex-wrap">

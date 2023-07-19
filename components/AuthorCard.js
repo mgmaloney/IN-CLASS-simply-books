@@ -1,16 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Link from 'next/link';
 import { deleteSingleAuthor } from '../api/authorData';
+import { useAuth } from '../utils/context/authContext';
+import { deleteBook } from '../api/bookData';
+import { viewAuthorDetails } from '../api/mergedData';
 
 function AuthorCard({ authorObj, onUpdate }) {
   // FOR DELETE, WE NEED TO REMOVE THE BOOK AND HAVE THE VIEW RERENDER,
   // SO WE PASS THE FUNCTION FROM THE PARENT THAT GETS THE BOOKS
+  const [authorDetails, setAuthorDetails] = useState();
+  const { user } = useAuth();
+  const { firebaseKey } = authorObj;
+
+  useEffect(() => {
+    viewAuthorDetails(firebaseKey, user).then(setAuthorDetails);
+  }, [firebaseKey]);
+
   const deleteThisAuthor = () => {
     if (window.confirm(`Delete ${authorObj.first_name + authorObj.last_name}?`)) {
-      deleteSingleAuthor(authorObj.firebaseKey).then(() => onUpdate());
+      authorDetails.books.forEach((book) => deleteBook(book.firebaseKey));
+      deleteSingleAuthor(authorDetails.firebaseKey).then(() => onUpdate());
     }
   };
 
@@ -21,7 +33,6 @@ function AuthorCard({ authorObj, onUpdate }) {
         <Card.Title>
           {authorObj.first_name} {authorObj.last_name}
         </Card.Title>
-        <p className="card-text bold">Testing</p>
         {/* DYNAMIC LINK TO VIEW THE author DETAILS  */}
         <Link href={`/author/${authorObj.firebaseKey}`} passHref>
           <Button variant="primary" className="m-2">
